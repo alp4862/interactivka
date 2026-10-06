@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Интерактивный дизайн и Мультимедиа</title>
+
+  <meta
+    name="description"
+    content="Электронный учебник по дисциплине Интерактивный дизайн и Мультимедиа"
+  >
+
+  <style>
+    /* ================================
+       ОСНОВНЫЕ НАСТРОЙКИ
+    ================================= */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      color: #e8eefc;
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(60, 110, 255, 0.15),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(130, 70, 255, 0.12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 90%,
+          rgba(0, 180, 255, 0.08),
+          transparent 30%
+        ),
+        #070b14;
+
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+
+      pointer-events: none;
+
+      opacity: 0.25;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 1px
+        );
+
+      background-size: 45px 45px;
+
+      mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+      );
+
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    /* ================================
+       HEADER
+    ================================= */
+
+    header {
+      position: sticky;
+      top: 0;
+
+      z-index: 1000;
+
+      width: 100%;
+
+      padding: 16px 20px;
+
+      background: rgba(7, 11, 20, 0.72);
+
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .header-inner {
+      width: min(1180px, 100%);
+      margin: auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 25px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      text-decoration: none;
+      color: white;
+
+      font-size: 18px;
+      font-weight: 800;
+
+      white-space: nowrap;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #4d8dff,
+          #865cff
+        );
+
+      box-shadow:
+        0 0 25px rgba(80, 130, 255, 0.25);
+
+      font-size: 19px;
+    }
+
+    /* ================================
+       НАВИГАЦИЯ-КАРТОЧКИ
+    ================================= */
+
+    .nav-cards {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 9px;
+
+      flex-wrap: wrap;
+    }
+
+    .nav-card {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      padding: 10px 14px;
+
+      color: #b9c4d8;
+
+      text-decoration: none;
+
+      font-size: 13px;
+      font-weight: 650;
+
+      background: rgba(255, 255, 255, 0.045);
+
+      border: 1px solid rgba(255, 255, 255, 0.09);
+
+      border-radius: 13px;
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+
+      transition:
+        transform 0.25s ease,
+        color 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .nav-card:hover {
+      transform: translateY(-3px);
+
+      color: white;
+
+      background: rgba(80, 140, 255, 0.13);
+
+      border-color: rgba(100, 160, 255, 0.4);
+
+      box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25),
+        0 0 20px rgba(80, 140, 255, 0.12);
+    }
+
+    .nav-card.active {
+      color: white;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(80, 140, 255, 0.20),
+          rgba(130, 80, 255, 0.14)
+        );
+
+      border-color: rgba(100, 160, 255, 0.4);
+
+      box-shadow:
+        0 0 20px rgba(80, 130, 255, 0.08);
+    }
+
+    .nav-icon {
+      width: 24px;
+      height: 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 7px;
+
+      background: rgba(255, 255, 255, 0.07);
+
+      font-size: 13px;
+    }
+
+    /* ================================
+       ОБЩИЙ CONTAINER
+    ================================= */
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+
+      margin: 0 auto;
+    }
+
+    /* ================================
+       HERO
+    ================================= */
+
+    .hero {
+      min-height: 650px;
+
+      display: flex;
+      align-items: center;
+
+      padding: 90px 0 80px;
+
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 8px 13px;
+
+      margin-bottom: 24px;
+
+      border-radius: 100px;
+
+      color: #b9ceff;
+
+      background: rgba(80, 130, 255, 0.08);
+
+      border: 1px solid rgba(100, 160, 255, 0.2);
+
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: #6ea0ff;
+
+      box-shadow:
+        0 0 12px #6ea0ff;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 78px);
+
+      line-height: 0.98;
+
+      letter-spacing: -3px;
+
+      margin-bottom: 28px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #ffffff 10%,
+          #a9c7ff 45%,
+          #9b7aff 90%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 700px;
+
+      color: #9da9bd;
+
+      font-size: 18px;
+
+      line-height: 1.7;
+
+      margin-bottom: 35px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 12px;
+    }
+
+    .primary-button,
+    .secondary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 13px 20px;
+
+      border-radius: 12px;
+
+      text-decoration: none;
+
+      font-size: 14px;
+      font-weight: 700;
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .primary-button {
+      color: white;
+
+      background:
+        linear-gradient(
+          135deg,
+          #4b89ff,
+          #7959ed
+        );
+
+      box-shadow:
+        0 10px 30px rgba(70, 120, 255, 0.2);
+    }
+
+    .primary-button:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 15px 35px rgba(70, 120, 255, 0.3);
+    }
+
+    .secondary-button {
+      color: #d5def0;
+
+      background: rgba(255, 255, 255, 0.05);
+
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .secondary-button:hover {
+      transform: translateY(-3px);
+
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    /* ================================
+       SECTION
+    ================================= */
+
+    section {
+      scroll-margin-top: 110px;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      margin-bottom: 35px;
+    }
+
+    .section-label {
+      display: inline-block;
+
+      margin-bottom: 12px;
+
+      color: #759cff;
+
+      font-size: 12px;
+      font-weight: 800;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 42px);
+
+      letter-spacing: -1.5px;
+
+      margin-bottom: 10px;
+
+      color: white;
+    }
+
+    .section-description {
+      max-width: 700px;
+
+      color: #8e9ab0;
+
+      line-height: 1.7;
+    }
+
+    /* ================================
+       INFO CARDS
+    ================================= */
+
+    .info-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 16px;
+
+      margin-bottom: 70px;
+    }
+
+    .info-card {
+      padding: 25px;
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.07),
+          rgba(255, 255, 255, 0.025)
+        );
+
+      border: 1px solid rgba(255, 255, 255, 0.09);
+
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.12);
+
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+
+      border-color:
+        rgba(100, 160, 255, 0.3);
+    }
+
+    .info-card-icon {
+      width: 45px;
+      height: 45px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 18px;
+
+      border-radius: 13px;
+
+      background: rgba(90, 140, 255, 0.12);
+
+      font-size: 19px;
+    }
+
+    .info-card h3 {
+      margin-bottom: 8px;
+
+      font-size: 17px;
+    }
+
+    .info-card p {
+      color: #8f9bb0;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+    }
+
+    /* ================================
+       ПОИСК
+    ================================= */
+
+    .search-box {
+      position: relative;
+
+      margin-bottom: 25px;
+    }
+
+    .search-box input {
+      width: 100%;
+
+      padding: 16px 20px 16px 48px;
+
+      color: white;
+
+      outline: none;
+
+      border-radius: 14px;
+
+      background: rgba(255, 255, 255, 0.045);
+
+      border: 1px solid rgba(255, 255, 255, 0.09);
+
+      transition:
+        border-color 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .search-box input::placeholder {
+      color: #66738a;
+    }
+
+    .search-box input:focus {
+      background: rgba(255, 255, 255, 0.06);
+
+      border-color:
+        rgba(100, 160, 255, 0.45);
+    }
+
+    .search-icon {
+      position: absolute;
+
+      left: 17px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      color: #71809a;
+    }
+
+    /* ================================
+       MATERIAL CARDS
+    ================================= */
+
+    .materials-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 16px;
+    }
+
+    .material-card {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+
+      min-height: 220px;
+
+      padding: 25px;
+
+      text-decoration: none;
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.07),
+          rgba(255, 255, 255, 0.025)
+        );
+
+      border: 1px solid rgba(255, 255, 255, 0.09);
+
+      overflow: hidden;
+
+      transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .material-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 150px;
+      height: 150px;
+
+      top: -80px;
+      right: -80px;
+
+      border-radius: 50%;
+
+      background: rgba(90, 140, 255, 0.15);
+
+      filter: blur(25px);
+
+      transition: transform 0.3s ease;
+    }
+
+    .material-card:hover {
+      transform: translateY(-7px);
+
+      border-color:
+        rgba(100, 160, 255, 0.35);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(80, 130, 255, 0.10),
+          rgba(255, 255, 255, 0.035)
+        );
+
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .material-card:hover::before {
+      transform: scale(1.4);
+    }
+
+    .material-number {
+      position: relative;
+
+      color: #719cff;
+
+      font-size: 12px;
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      margin-bottom: 18px;
+    }
+
+    .material-card h3 {
+      position: relative;
+
+      margin-bottom: 10px;
+
+      font-size: 19px;
+
+      color: white;
+    }
+
+    .material-card p {
+      position: relative;
+
+      color: #8d99ae;
+
+      font-size: 14px;
+
+      line-height: 1.6;
+
+      flex: 1;
+    }
+
+    .material-link {
+      position: relative;
+
+      display: inline-flex;
+
+      margin-top: 20px;
+
+      color: #80a7ff;
+
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* ================================
+       GLOSSARY
+    ================================= */
+
+    .glossary-section {
+      padding: 100px 0;
+    }
+
+    .glossary-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 14px;
+    }
+
+    .term {
+      display: flex;
+      flex-direction: column;
+
+      padding: 21px;
+
+      border-radius: 17px;
+
+      background:
+        rgba(255, 255, 255, 0.045);
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .term:hover {
+      transform: translateY(-4px);
+
+      background:
+        rgba(80, 130, 255, 0.08);
+
+      border-color:
+        rgba(100, 160, 255, 0.3);
+    }
+
+    .term h3 {
+      margin-bottom: 9px;
+
+      font-size: 17px;
+    }
+
+    .term h3 a {
+      color: white;
+
+      text-decoration: none;
+
+      transition: color 0.2s ease;
+    }
+
+    .term h3 a:hover {
+      color: #82aaff;
+    }
+
+    .term p {
+      color: #8d99ae;
+
+      font-size: 13px;
+
+      line-height: 1.6;
+
+      flex: 1;
+    }
+
+    .term-link {
+      margin-top: 14px;
+
+      color: #769eff;
+
+      font-size: 12px;
+
+      text-decoration: none;
+    }
+
+    /* ================================
+       SYLLABUS / LABS ANCHOR
+    ================================= */
+
+    .section-divider {
+      height: 1px;
+
+      margin: 30px 0 0;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,0.1),
+          transparent
+        );
+    }
+
+    /* ================================
+       FOOTER
+    ================================= */
+
+    footer {
+      margin-top: 60px;
+
+      padding: 35px 20px;
+
+      text-align: center;
+
+      border-top:
+        1px solid rgba(255, 255, 255, 0.07);
+
+      background:
+        rgba(0, 0, 0, 0.15);
+    }
+
+    .footer-name {
+      color: white;
+
+      font-weight: 700;
+
+      margin-bottom: 7px;
+    }
+
+    .footer-info {
+      color: #68758b;
+
+      font-size: 13px;
+    }
+
+    /* ================================
+       АНИМАЦИЯ ПОЯВЛЕНИЯ
+    ================================= */
+
+    .fade-in {
+      animation:
+        fadeIn 0.8s ease both;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ================================
+       АДАПТИВ
+    ================================= */
+
+    @media (max-width: 1000px) {
+
+      .header-inner {
+        flex-direction: column;
+      }
+
+      .materials-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .glossary-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+      .info-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      header {
+        padding: 12px;
+      }
+
+      .header-inner {
+        gap: 13px;
+      }
+
+      .logo {
+        font-size: 16px;
+      }
+
+      .logo-icon {
+        width: 35px;
+        height: 35px;
+      }
+
+      .nav-cards {
+        display: grid;
+
+        grid-template-columns:
+          repeat(2, 1fr);
+
+        width: 100%;
+
+        gap: 7px;
+      }
+
+      .nav-card {
+        width: 100%;
+
+        padding: 10px 7px;
+
+        font-size: 12px;
+      }
+
+      .nav-card:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .container {
+        width:
+          min(100% - 28px, 1180px);
+      }
+
+      .hero {
+        min-height: 600px;
+
+        padding: 70px 0;
+      }
+
+      .hero h1 {
+        font-size: 43px;
+
+        letter-spacing: -2px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .primary-button,
+      .secondary-button {
+        width: 100%;
+      }
+
+      .info-grid,
+      .materials-grid,
+      .glossary-grid {
+        grid-template-columns:
+          1fr;
+      }
+
+      .section {
+        padding: 65px 0;
+      }
+
+      .glossary-section {
+        padding: 70px 0;
+      }
+    }
+
+    @media (max-width: 400px) {
+
+      .nav-card {
+        font-size: 11px;
+      }
+
+      .nav-icon {
+        width: 21px;
+        height: 21px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+
+  <!-- ================================
+       HEADER
+  ================================= -->
+
+  <header>
+
+    <div class="header-inner">
+
+      <a href="#top" class="logo">
+        <span class="logo-icon">✦</span>
+        <span>Interactive Design</span>
+      </a>
+
+      <nav class="nav-cards">
+
+        <a href="#top" class="nav-card active">
+          <span class="nav-icon">⌂</span>
+          <span>Главная</span>
+        </a>
+
+        <a href="#materials" class="nav-card">
+          <span class="nav-icon">▣</span>
+          <span>Материалы</span>
+        </a>
+
+        <a href="#syllabus" class="nav-card">
+          <span class="nav-icon">☰</span>
+          <span>Силлабус</span>
+        </a>
+
+        <a href="#labs" class="nav-card">
+          <span class="nav-icon">⚙</span>
+          <span>Лабораторные</span>
+        </a>
+
+        <a href="#glossary" class="nav-card">
+          <span class="nav-icon">?</span>
+          <span>Глоссарий</span>
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- ================================
+       HERO
+  ================================= -->
+
+  <main>
+
+    <section class="hero">
+
+      <div class="container">
+
+        <div class="hero-content fade-in">
+
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Электронный учебник
+          </div>
+
+          <h1>
+            Интерактивный дизайн
+            <br>
+            и Мультимедиа
+          </h1>
+
+          <p>
+            Современный электронный учебник по дисциплине,
+            посвящённой UX/UI-дизайну, мультимедиа,
+            компьютерной графике, веб-технологиям
+            и созданию интерактивных цифровых продуктов.
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#materials" class="primary-button">
+              Начать обучение →
+            </a>
+
+            <a href="#glossary" class="secondary-button">
+              Открыть глоссарий
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         ИНФОРМАЦИЯ О КУРСЕ
+    ================================= -->
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <span class="section-label">
+            О курсе
+          </span>
+
+          <h2 class="section-title">
+            Основные направления
+          </h2>
+
+          <p class="section-description">
+            Здесь собраны основные материалы,
+            которые помогут изучить интерактивный дизайн
+            и мультимедийные технологии.
+          </p>
+
+        </div>
+
+
+        <div class="info-grid">
+
+          <article class="info-card">
+
+            <div class="info-card-icon">
+              ◈
+            </div>
+
+            <h3>
+              UX / UI
+            </h3>
+
+            <p>
+              Принципы пользовательского опыта,
+              интерфейса, удобства использования
+              и доступности цифровых продуктов.
+            </p>
+
+          </article>
+
+
+          <article class="info-card">
+
+            <div class="info-card-icon">
+              ◉
+            </div>
+
+            <h3>
+              Мультимедиа
+            </h3>
+
+            <p>
+              Работа с изображениями, аудио,
+              видео, анимацией и другими
+              видами цифрового контента.
+            </p>
+
+          </article>
+
+
+          <article class="info-card">
+
+            <div class="info-card-icon">
+              ◇
+            </div>
+
+            <h3>
+              Веб-технологии
+            </h3>
+
+            <p>
+              HTML, CSS, JavaScript и основы
+              создания современных интерактивных
+              веб-интерфейсов.
+            </p>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         МАТЕРИАЛЫ
+    ================================= -->
+
+    <section class="section" id="materials">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <span class="section-label">
+            Учебные материалы
+          </span>
+
+          <h2 class="section-title">
+            Материалы курса
+          </h2>
+
+          <p class="section-description">
+            Выберите нужный раздел электронного учебника.
+          </p>
+
+        </div>
+
+
+        <!-- ПОИСК -->
+
+        <div class="search-box">
+
+          <span class="search-icon">
+            🔍
+          </span>
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Поиск по учебным материалам..."
+          >
+
+        </div>
+
+
+        <div class="materials-grid" id="materialsGrid">
+
+
+          <!-- ЛЕКЦИЯ 1 -->
+
+          <a
+            href="lecture-1.html"
+            class="material-card"
+          >
+
+            <span class="material-number">
+              ЛЕКЦИЯ 01
+            </span>
+
+            <h3>
+              Графическая информация
+            </h3>
+
+            <p>
+              Основы графической информации,
+              растровая и векторная графика,
+              форматы изображений.
+            </p>
+
+            <span class="material-link">
+              Открыть лекцию →
+            </span>
+
+          </a>
+
+
+          <!-- ЛЕКЦИЯ 2 -->
+
+          <a
+            href="lecture-2.html"
+            class="material-card"
+          >
+
+            <span class="material-number">
+              ЛЕКЦИЯ 02
+            </span>
+
+            <h3>
+              Компьютерная графика
+            </h3>
+
+            <p>
+              Основные понятия компьютерной графики,
+              изображения, цвета и цифровые технологии.
+            </p>
+
+            <span class="material-link">
+              Открыть лекцию →
+            </span>
+
+          </a>
+
+
+          <!-- ЛЕКЦИЯ 3 -->
+
+          <a
+            href="lecture-3.html"
+            class="material-card"
+          >
+
+            <span class="material-number">
+              ЛЕКЦИЯ 03
+            </span>
+
+            <h3>
+              UX / UI дизайн
+            </h3>
+
+            <p>
+              Пользовательский опыт,
+              интерфейс, взаимодействие,
+              usability и accessibility.
+            </p>
+
+            <span class="material-link">
+              Открыть лекцию →
+            </span>
+
+          </a>
+
+
+          <!-- ЛЕКЦИЯ 4 -->
+
+          <a
+            href="lecture-4.html"
+            class="material-card"
+          >
+
+            <span class="material-number">
+              ЛЕКЦИЯ 04
+            </span>
+
+            <h3>
+              Цвет, типографика и иконки
+            </h3>
+
+            <p>
+              Принципы использования цвета,
+              текста, шрифтов и визуальных элементов
+              в пользовательском интерфейсе.
+            </p>
+
+            <span class="material-link">
+              Открыть лекцию →
+            </span>
+
+          </a>
+
+
+          <!-- СИЛЛАБУС -->
+
+          <a
+            href="syllabus.html"
+            class="material-card"
+            id="syllabus"
+          >
+
+            <span class="material-number">
+              СИЛЛАБУС
+            </span>
+
+            <h3>
+              Силлабус курса
+            </h3>
+
+            <p>
+              Структура дисциплины,
+              цели обучения, темы,
+              требования и организация курса.
+            </p>
+
+            <span class="material-link">
+              Открыть силлабус →
+            </span>
+
+          </a>
+
+
+          <!-- ЛАБОРАТОРНАЯ 1 -->
+
+          <a
+            href="lab-1.html"
+            class="material-card"
+            id="labs"
+          >
+
+            <span class="material-number">
+              ЛАБОРАТОРНАЯ 01
+            </span>
+
+            <h3>
+              Лабораторная работа №1
+            </h3>
+
+            <p>
+              Практическое задание по первой
+              теме дисциплины.
+            </p>
+
+            <span class="material-link">
+              Открыть лабораторную →
+            </span>
+
+          </a>
+
+
+          <!-- ЛАБОРАТОРНЫЕ 5-14 -->
+
+          <a
+            href="lab-5-14.html"
+            class="material-card"
+          >
+
+            <span class="material-number">
+              ЛАБОРАТОРНЫЕ 05–14
+            </span>
+
+            <h3>
+              Лабораторные работы
+            </h3>
+
+            <p>
+              Сборник лабораторных работ
+              с пятой по четырнадцатую.
+            </p>
+
+            <span class="material-link">
+              Открыть лабораторные →
+            </span>
+
+          </a>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================================
+         ГЛОССАРИЙ
+         НЕ ОТДЕЛЬНЫЙ ФАЙЛ
+    ================================= -->
+
+    <section
+      class="glossary-section"
+      id="glossary"
+    >
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <span class="section-label">
+            Термины
+          </span>
+
+          <h2 class="section-title">
+            Глоссарий
+          </h2>
+
+          <p class="section-description">
+            Основные термины курса.
+            Нажмите на термин, чтобы открыть
+            соответствующую статью в Википедии.
+          </p>
+
+        </div>
+
+
+        <!-- ПОИСК ГЛОССАРИЯ -->
+
+        <div class="search-box">
+
+          <span class="search-icon">
+            🔍
+          </span>
+
+          <input
+            type="text"
+            id="glossarySearch"
+            placeholder="Поиск термина..."
+          >
+
+        </div>
+
+
+        <div class="glossary-grid">
+
+
+          <!-- HTML -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/HTML"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                HTML
+              </a>
+            </h3>
+
+            <p>
+              Язык разметки гипертекста,
+              используемый для создания структуры
+              веб-страниц.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/HTML"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- CSS -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/CSS"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                CSS
+              </a>
+            </h3>
+
+            <p>
+              Язык стилей для оформления
+              внешнего вида веб-страниц.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/CSS"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- JAVASCRIPT -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/JavaScript"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                JavaScript
+              </a>
+            </h3>
+
+            <p>
+              Язык программирования,
+              используемый для создания
+              интерактивности на веб-страницах.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/JavaScript"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- UX -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Проектирование_пользовательского_опыта"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                UX
+              </a>
+            </h3>
+
+            <p>
+              Пользовательский опыт взаимодействия
+              человека с цифровым продуктом.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Проектирование_пользовательского_опыта"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- UI -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Пользовательский_интерфейс"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                UI
+              </a>
+            </h3>
+
+            <p>
+              Пользовательский интерфейс,
+              через который человек взаимодействует
+              с программой или сайтом.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Пользовательский_интерфейс"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- МУЛЬТИМЕДИА -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Мультимедиа"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Мультимедиа
+              </a>
+            </h3>
+
+            <p>
+              Представление информации с использованием
+              текста, графики, аудио, видео и анимации.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Мультимедиа"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- ИНТЕРАКТИВНОСТЬ -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Интерактивность"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Интерактивность
+              </a>
+            </h3>
+
+            <p>
+              Возможность пользователя взаимодействовать
+              с цифровой системой и получать ответ
+              на свои действия.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Интерактивность"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- КОМПЬЮТЕРНАЯ ГРАФИКА -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Компьютерная_графика"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Компьютерная графика
+              </a>
+            </h3>
+
+            <p>
+              Область информатики, связанная
+              с созданием и обработкой изображений
+              с помощью компьютера.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Компьютерная_графика"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- РАСТРОВАЯ ГРАФИКА -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Растровая_графика"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Растровая графика
+              </a>
+            </h3>
+
+            <p>
+              Изображение, состоящее из множества
+              отдельных пикселей.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Растровая_графика"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- ВЕКТОРНАЯ ГРАФИКА -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Векторная_графика"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Векторная графика
+              </a>
+            </h3>
+
+            <p>
+              Изображение, построенное на основе
+              математических объектов и кривых.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Векторная_графика"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- ПИКСЕЛЬ -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Пиксель"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Пиксель
+              </a>
+            </h3>
+
+            <p>
+              Минимальный элемент растрового
+              цифрового изображения.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Пиксель"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- SVG -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/SVG"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                SVG
+              </a>
+            </h3>
+
+            <p>
+              Формат векторной графики,
+              широко используемый в интернете.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/SVG"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- АНИМАЦИЯ -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Анимация"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Анимация
+              </a>
+            </h3>
+
+            <p>
+              Создание иллюзии движения
+              последовательностью изображений
+              или изменением объектов.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Анимация"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- ВЕБ-ДИЗАЙН -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Веб-дизайн"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Веб-дизайн
+              </a>
+            </h3>
+
+            <p>
+              Проектирование визуального оформления
+              и интерфейса веб-сайтов.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Веб-дизайн"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- АДАПТИВНЫЙ ДИЗАЙН -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Адаптивный_веб-дизайн"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Адаптивный дизайн
+              </a>
+            </h3>
+
+            <p>
+              Подход, при котором сайт
+              автоматически подстраивается
+              под размер экрана.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Адаптивный_веб-дизайн"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- ТИПОГРАФИКА -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/Типографика"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Типографика
+              </a>
+            </h3>
+
+            <p>
+              Искусство и правила оформления
+              текста, шрифтов и их расположения.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/Типографика"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- RGB -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/RGB"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                RGB
+              </a>
+            </h3>
+
+            <p>
+              Цветовая модель, основанная
+              на смешении красного, зелёного
+              и синего цветов.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/RGB"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- JPEG -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/JPEG"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                JPEG
+              </a>
+            </h3>
+
+            <p>
+              Популярный формат растровых изображений
+              с алгоритмом сжатия данных.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/JPEG"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+          <!-- PNG -->
+
+          <article class="term">
+
+            <h3>
+              <a
+                href="https://ru.wikipedia.org/wiki/PNG"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                PNG
+              </a>
+            </h3>
+
+            <p>
+              Формат растровой графики,
+              поддерживающий прозрачность
+              и сжатие без потерь.
+            </p>
+
+            <a
+              class="term-link"
+              href="https://ru.wikipedia.org/wiki/PNG"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Wikipedia →
+            </a>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================================
+       FOOTER
+  ================================= -->
+
+  <footer>
+
+    <div class="footer-name">
+      Науан Алпамыс
+    </div>
+
+    <div class="footer-info">
+      6В06120 · Программная инженерия
+      <br>
+      Электронный учебник · Интерактивный дизайн и Мультимедиа
+    </div>
+
+  </footer>
+
+
+  <!-- ================================
+       JAVASCRIPT
+  ================================= -->
+
+  <script>
+
+    /* =================================
+       ПОИСК ПО МАТЕРИАЛАМ
+    ================================= */
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const materialCards =
+      document.querySelectorAll(".material-card");
+
+
+    searchInput.addEventListener(
+      "input",
+      function () {
+
+        const query =
+          this.value
+            .toLowerCase()
+            .trim();
+
+
+        materialCards.forEach(
+          card => {
+
+            const text =
+              card.textContent
+                .toLowerCase();
+
+
+            if (text.includes(query)) {
+
+              card.style.display = "";
+
+            } else {
+
+              card.style.display = "none";
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =================================
+       ПОИСК ПО ГЛОССАРИЮ
+    ================================= */
+
+    const glossarySearch =
+      document.getElementById(
+        "glossarySearch"
+      );
+
+    const terms =
+      document.querySelectorAll(".term");
+
+
+    glossarySearch.addEventListener(
+      "input",
+      function () {
+
+        const query =
+          this.value
+            .toLowerCase()
+            .trim();
+
+
+        terms.forEach(
+          term => {
+
+            const text =
+              term.textContent
+                .toLowerCase();
+
+
+            if (text.includes(query)) {
+
+              term.style.display = "";
+
+            } else {
+
+              term.style.display = "none";
+
+            }
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =================================
+       ПОДСВЕТКА АКТИВНОЙ КНОПКИ
+    ================================= */
+
+    const navCards =
+      document.querySelectorAll(
+        ".nav-card"
+      );
+
+
+    navCards.forEach(
+      card => {
+
+        card.addEventListener(
+          "click",
+          function () {
+
+            navCards.forEach(
+              item =>
+                item.classList.remove(
+                  "active"
+                )
+            );
+
+
+            this.classList.add(
+              "active"
+            );
+
+          }
+        );
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
